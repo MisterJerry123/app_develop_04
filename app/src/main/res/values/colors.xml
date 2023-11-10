@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+<!--
+11/10 건희 추가 / bottomnav 색을 color에 추가
+-->
+    <color name="bottomnav">#CCCFFF</color>
+
+
 </resources>

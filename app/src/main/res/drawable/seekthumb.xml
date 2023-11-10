@@ -6,8 +6,8 @@
             android:shape="oval">
 
             <size
-                android:width="10dp"
-                android:height="10dp"/>
+                android:width="30px"
+                android:height="30px"/>
         </shape>
     </item>
     <!-- 내부 이미지 -->
@@ -15,9 +15,11 @@
         <bitmap
 
 
-            android:src="@drawable/seekbar_character3"
-            android:gravity="center"
+            android:src="@drawable/seekbar_character1_4"
 
+            android:gravity="center"
+            android:height="30dp"
+            android:width="30dp"
             />
     </item>
 </layer-list>

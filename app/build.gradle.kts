@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.example.alomtest"
         minSdk = 31 //수정
-        targetSdk = 33
+        targetSdk = 31//수정
         versionCode = 1
         versionName = "1.0"
 
