@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.alomtest.databinding.ActivityMainBinding
+import com.example.alomtest.databinding.FragmentMypageMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
+    private lateinit var binding2: FragmentMypageMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +24,18 @@ class MainActivity : AppCompatActivity() {
                 R.id.food -> replaceFragment(food())
                 R.id.home -> replaceFragment(Home())
                 R.id.profile -> replaceFragment(Profile())
-                R.id.settings -> replaceFragment(Settings())
+                R.id.settings -> replaceFragment(mypage_main())
                 else ->{
 
                 }
             }
             true
         }
+
+
+
+
+
 
     }
 
@@ -37,8 +45,16 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,fragment)
         fragmentTransaction.commit()
+        println("success")
+    }
+
+    companion object {
+        fun replaceFragment() {
+            TODO("Not yet implemented")
+        }
     }
 
 
-
 }
+
+

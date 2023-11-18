@@ -58,6 +58,8 @@ class exercise : Fragment() {
         getData()
 
 
+
+
     }
 
     private fun getData(){

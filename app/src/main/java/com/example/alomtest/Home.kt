@@ -12,6 +12,9 @@ import android.widget.SeekBar
 import android.widget.TextClock
 import com.example.alomtest.databinding.FragmentHomeBinding
 import com.example.alomtest.databinding.FragmentSettingsBinding
+import android.view.ViewGroup.LayoutParams
+import android.widget.FrameLayout
+
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -34,7 +37,23 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val mSeekBar = binding.seekBar
+        //val mSeekBar = binding.seekBar
+        //val seekbar_Frame = binding.seekbarFrame
+
+        //11/14 추가
+        val mSeekBar = binding.seekBar
+        val frameLayout = binding.seekbarFrame
+
+        // SeekBar를 최대 크기로 설정
+        val layoutParams = FrameLayout.LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
+        )
+        mSeekBar.layoutParams = layoutParams
+
+
+
+
 //        //이미지 겹칠 때 앞서게 설정
 //        //val image1=binding.imageView4
 //        //val image2=binding.imageView5

@@ -6,12 +6,10 @@
             <solid android:color="@color/white" />
 <!--            android:Radius="2000dp"-->
             <corners
-                    android:radius="20000dp"
+                    android:radius="25dp"
 
                 />
-            <stroke
-                android:color="#456A73FF"
-                android:width="2dp" />
+
         </shape>
     </item>
 </layer-list>

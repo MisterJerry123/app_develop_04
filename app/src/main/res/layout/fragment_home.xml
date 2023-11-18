@@ -75,6 +75,7 @@
             숫자부분과 단위(km,h,kcal)부분을 분리함으로써 api에서 받아온 거리, 시간, 칼로리를 걍 settext하면 됨
 -->
             <FrameLayout
+                android:id="@+id/seekbar_frame"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
@@ -83,27 +84,15 @@
                 android:layout_marginBottom="20dp"
                 >
 
-                <ImageView
-                    android:id="@+id/imageView"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="25dp"
 
 
-                    android:src="@drawable/seekbar_image"
-                    />
+                    <SeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:rotation="270"
+                        />
 
-                <ImageView
-                    android:id="@+id/circle"
-
-                    android:layout_gravity="center|left"
-
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:translationX="10dp"
-
-                    android:src="@drawable/seekbar_character5" />
 
 
             </FrameLayout>
