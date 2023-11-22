@@ -5,5 +5,5 @@
         android:endColor="#2633FF"
         android:angle="90"/> <!-- 90은 vertical 방향을 나타냅니다. -->
 
-    <corners android:radius="40dp" />
+    <corners android:radius="25dp" />
 </shape>
