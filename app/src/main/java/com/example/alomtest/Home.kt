@@ -227,6 +227,20 @@ class Home : Fragment() {
 //
 //        println(bmi)
 
+
+
+        if (!SharedPreferenceUtils.isInitialized(requireContext())) {
+            SharedPreferenceUtils.initializeApp(requireContext())
+
+            // 여기에 초기화할 데이터가 있으면 추가
+            SharedPreferenceUtils.saveData(requireContext(), "height", "0")
+            SharedPreferenceUtils.saveData(requireContext(), "weight", "0")
+            SharedPreferenceUtils.saveData(requireContext(), "bmi", "0")
+        }
+
+
+
+
         val bmi: Double = SharedPreferenceUtils.loadData(requireContext(), "bmi", "").toDouble()
         println("bmi"+ bmi)
 
@@ -252,6 +266,8 @@ class Home : Fragment() {
         //edittext를 임의수정 못하게 막은 코드
         val saying=binding.editTextText
         saying.keyListener = null
+
+
     }
 
 
