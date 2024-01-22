@@ -58,7 +58,7 @@ class exercise_main : Fragment() {
         addbutton.setOnClickListener {
 
             //일단 기능 해제
-            replaceFragment(add_routine_page())
+
 
 
 

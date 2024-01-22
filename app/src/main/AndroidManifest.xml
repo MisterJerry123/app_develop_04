@@ -59,6 +59,12 @@
             android:name=".login.information"
             android:exported="false" />
         <activity
+            android:name=".add_routine_page"
+            android:exported="false" />
+        <activity
+            android:name=".exercise_main_copy"
+            android:exported="false" />
+        <activity
             android:name=".login.terms"
             android:exported="false" />
         <activity

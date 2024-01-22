@@ -65,6 +65,6 @@ class exercise : Fragment() {
             val dataClass = DataClass(imageList[i],titleList[i])
             dataList.add(dataClass)
         }
-        recyclerView.adapter = AdapterClass(dataList)
+        //recyclerView.adapter = AdapterClass(dataList)
     }
 }

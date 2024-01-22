@@ -1,45 +1,42 @@
 package com.example.alomtest
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.alomtest.databinding.FragmentExerciseAddCustomListBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.example.alomtest.databinding.ExerciseAddCustomListBinding
 import com.example.alomtest.databinding.FragmentExerciseMainBinding
+import com.example.alomtest.login.account2
 
-private lateinit var binding: FragmentExerciseAddCustomListBinding
+private lateinit var binding: ExerciseAddCustomListBinding
 
 
-class exercise_add_custom_list : Fragment() {
+class exercise_add_custom_list : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=FragmentExerciseAddCustomListBinding.inflate(layoutInflater)
+        binding=ExerciseAddCustomListBinding.inflate(layoutInflater)
 
         val backicon = binding.cancelicon
 
-        backicon.setOnClickListener {
-            replaceFragment(add_routine_page())
-        }
+//        backicon.setOnClickListener {
+//            val intent = Intent(this@exercise_add_custom_list,exercise_main_copy::class.java)
+//
+//        }
     }
-    private var _binding: FragmentExerciseAddCustomListBinding? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
-        _binding = FragmentExerciseAddCustomListBinding.inflate(inflater,container,false)
-        return binding.root
-        //return inflater.inflate(R.layout.fragment_mypage_body_measurement_editmode, container, false)
-    }
-    private fun replaceFragment(fragment: Fragment){
-        val fragmentManager = parentFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,fragment)
-        fragmentTransaction.commit()
-        println("success")
-
-    }
+//    private fun replaceFragment(fragment: Fragment){
+//        val fragmentManager = parentFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.frame_layout,fragment)
+//        fragmentTransaction.commit()
+//        println("success")
+//
+//    }
     companion object {
 
     }
