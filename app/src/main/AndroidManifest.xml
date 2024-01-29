@@ -71,6 +71,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".AddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Food_dialog"
+            android:exported="false" />
 
         <activity
             android:name=".Settings"

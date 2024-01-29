@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.alomtest"
-    compileSdk = 33
+    compileSdk = 34
     buildFeatures{
         viewBinding = true
     }
@@ -63,6 +63,18 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.9.0")
 
+
+    //cardView
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+
+    //food 관련 의존성
+    //testImplementation ("junit:junit:4.+")
+    implementation("it.xabaras.android:recyclerview-swipedecorator:1.4")
+
+
+
     // OkHttp
     implementation ("com.squareup.okhttp3:okhttp:4.10.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
@@ -77,4 +89,6 @@ dependencies {
 
     //길이 자동 조절
     implementation ("me.grantland:autofittextview:0.2.1")
+
+    //implementation("androidx.navigation:navigation-common:2.7.6")
 }

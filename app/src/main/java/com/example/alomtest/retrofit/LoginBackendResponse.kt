@@ -121,3 +121,8 @@ data class exercise_list(
     val calorie:String,
     val category:String
 )
+
+data class food_list(
+    val name:String,
+    val calorie: Double, //100g당 칼로리
+)

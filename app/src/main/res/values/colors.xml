@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#ff0000</color>
 
     <color name="bottomnav_remove_effect">#cccfff</color>
 </resources>

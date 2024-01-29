@@ -95,6 +95,11 @@ interface Api{
     fun load_exercise(
         @Header("Authorization") accessToken:String,
     ):Call<ArrayList<exercise_list>>
+    @GET("api/food")
+    fun load_food(
+        @Header("Authorization") accessToken:String,
+    ):Call<ArrayList<food_list>>
+
 //    @POST("api/user/change-forget-password")
 //    fun reset_password(
 //        @Body jsonParams: JsonElement

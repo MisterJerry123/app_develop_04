@@ -28,10 +28,6 @@ class exercise_select_exercise : Fragment() {
     private lateinit var receive_data:String
     lateinit var validexercise:ArrayList<exercise_list>
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentExerciseSelectExerciseBinding.inflate(layoutInflater)
@@ -74,7 +70,7 @@ class exercise_select_exercise : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //binding.get.setOnClickListener {
             val api = Api.create()
-
+/**/
             api.load_exercise(accessToken = "Bearer $usertoken")
                 .enqueue(object : Callback<ArrayList<exercise_list>> {
                     override fun onResponse(
@@ -85,8 +81,6 @@ class exercise_select_exercise : Fragment() {
                         Log.d("로그인 통신 성공",response.toString())
                         Log.d("로그인 통신 성공", response.body().toString())
                         Log.d("response코드",response.code().toString())
-
-
 
                         when (response.code()) {
                             200-> {
