@@ -1,6 +1,7 @@
 package com.example.alomtest.exercise.custompage01
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,12 @@ class add_routine_page : Fragment() {
         val addbtn = binding.exerciseAddBtn
         val backicon=binding.cancelicon
 
+
+        val bundle = arguments
+        val receive_data = bundle?.getString("exercise_name").toString()
+
+        Log.d("번들 테스트", receive_data)
+
         addbtn.setOnClickListener {
             println("test1")
             replaceFragment(exercise_add_custom_list())
@@ -35,15 +42,6 @@ class add_routine_page : Fragment() {
             replaceFragment(exercise_main_copy())
         }
 
-
-        //backicon은 나중에 구현
-
-
-
-
-    //View.findViewById(R.id.exercise_view)
-
-
     }
 
 
@@ -51,6 +49,15 @@ class add_routine_page : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
+
+
+        //backicon은 나중에 구현
+
+
+
+
+        //View.findViewById(R.id.exercise_view)
 
 //        val customList = arrayListOf(
 //            exerciseData("대흉근 발달, 3대 운동","01 바벨 벤치 프레스")

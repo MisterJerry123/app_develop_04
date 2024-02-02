@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseMainCopyBinding
-import java.util.Collections.list
 
 
 class exercise_main_copy : Fragment() {
@@ -28,8 +27,6 @@ class exercise_main_copy : Fragment() {
 //        exercise_routine_profile("길똥이의 저녁운동", 4),
 //        exercise_routine_profile("길똥이의 야간운동", 6),
 //        exercise_routine_profile("길똥이의 새벽운동", 4),
-//
-//
 //    )
 
     var test_data = mutableListOf<exercise_routine_profile>()
