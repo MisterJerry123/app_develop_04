@@ -7,12 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.alomtest.MyViewModel
 import com.example.alomtest.R
 import com.example.alomtest.databinding.CustomExerciseListCopyBinding
 import com.example.alomtest.exerciseData
 
 
-class exercise_list_adpater(val customList:ArrayList<exerciseData>): Adapter<exercise_list_adpater.CustomViewHolder>(){
+class exercise_list_adpater(val viewModel: MyViewModel,val customList:ArrayList<exerciseData>): Adapter<exercise_list_adpater.CustomViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         //val View = LayoutInflater.from(parent.context).inflate(R.layout.custom_exercise_list_copy,parent,false)//context는 activity에서 담고 있는 모든 정보
@@ -57,7 +58,8 @@ class exercise_list_adpater(val customList:ArrayList<exerciseData>): Adapter<exe
 
         fun bind(pos:Int){
             binding.setRecyclerview.apply {
-                adapter = set_list_adapter(context,/*ArrayList<set_list_item>()*/customList[pos].set_list )
+                adapter = set_list_adapter(context,/*ArrayList<set_list_item>()*//*customList[pos].set_list*/
+                    viewModel._myList.value!![pos].set_list )
 
 
                 layoutManager = LinearLayoutManager(binding.setRecyclerview.context,

@@ -130,3 +130,16 @@ data class food_list(//서버로 부터 받은 음식 정보들을 받는 data c
     val calorie:Double,
     val mass :Double,
 )
+
+data class custom_exercise_data_class(val presetNumber:Int, val exerciseNumber:Int, val presetTitle : String, val weight:Int, val setCount : Int, val repetitionCount:Int, val exerciseName:String, val category:String
+)
+/*
+    "presetNumber": 0,
+    "exerciseNumber": 0,
+    "presetTitle": "string",
+    "weight": 0,
+    "setCount": 0,
+    "repetitionCount": 0,
+    "exerciseName": "string",
+    "category": "string"
+*/

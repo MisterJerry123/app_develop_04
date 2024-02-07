@@ -103,6 +103,15 @@ interface Api{
 
     ):Call<ArrayList<food_list>>
 
+    @POST("api/preset/save")
+        fun custom_exercise_save(
+        @Header("Authorization") accessToken:String,
+        @Body jsonParams: JsonElement //idx를 json형태로 넘김
+
+    ):Call<ArrayList<custom_exercise_data_class>>
+
+
+
 
 //    @POST("api/user/change-forget-password")
 //    fun reset_password(
