@@ -100,7 +100,10 @@ class information : AppCompatActivity() {
             intent.putExtra("usergender",gender.toString())
             intent.putExtra("userheight",binding.height.text.toString())
             intent.putExtra("userweight",binding.weight.text.toString())
-            startActivity(intent)
+            SharedPreferenceUtils.saveData(this@information,"terms_agree_check", false.toString())
+
+
+                startActivity(intent)
             finish()
 
 

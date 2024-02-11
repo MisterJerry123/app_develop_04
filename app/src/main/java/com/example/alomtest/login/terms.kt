@@ -44,12 +44,9 @@ class terms : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if(SharedPreferenceUtils.loadData(this@terms,"terms_agree_check")!="true"){
+        if(SharedPreferenceUtils.loadData(this@terms,"terms_agree_check").toString()!=true.toString()){
             SharedPreferenceUtils.saveData(this@terms,"terms_agree_check", false.toString())
         }
-
-
 
 
         binding = TermsLayoutBinding.inflate(layoutInflater)
@@ -76,13 +73,43 @@ class terms : AppCompatActivity() {
         Log.d("terms 몸무게 인텐트 테스트",weight)
         Log.d("terms 키 인텐트 테스트",height)
 
-//        binding.nextBtn.setOnClickListener {
-//
-//
-//
-//
-//
-//        }
+        binding.nextBtn.setOnClickListener{
+
+            val jsonObject= JSONObject()
+
+
+
+            jsonObject.put("height",height)
+            jsonObject.put("weight",weight)
+            //jsonObject.put("gender",binding.height.text.toString())
+
+            val year = birthday.toString().substring(0, 4)
+            val month = birthday.toString().substring(4, 6)
+            val day = birthday.toString().substring(6,8)
+
+            val newBirthday = "$year-$month-$day"
+
+
+
+            jsonObject.put("birthday",newBirthday)
+
+
+            jsonObject.put("name",name.toString())
+            jsonObject.put("email",email.toString())
+            jsonObject.put("password",password)
+            jsonObject.put("gender",gender.toString())
+
+            Log.d("json출력",jsonObject.toString())
+
+            signup(jsonObject)
+
+
+
+
+
+
+
+        }
 
 
 
@@ -122,21 +149,46 @@ class terms : AppCompatActivity() {
         }
 
         customDialog.setOnDismissListener {
-            //recreate()
+            recreate()
         }
-        val isTermsAgreed =SharedPreferenceUtils.loadData(this@terms,"terms_agree_check").toString()
-
+        val isTermsAgreed = SharedPreferenceUtils.loadData(this@terms, "terms_agree_check").toBoolean()
         Log.d("동의여부", isTermsAgreed.toString())
         // SharedPreferences의 값에 따라 버튼 동작 변경
-        if (isTermsAgreed=="true") {
+        if (isTermsAgreed) {
             // 동의한 경우: 버튼 활성화 및 클릭 리스너 설정
             binding.nextBtn.setBackgroundResource(R.drawable.button_sample2)
             binding.nextBtn.setOnClickListener {
-                // 버튼 클릭 시 수행할 동작
-                // 예: 회원가입 API 호출 등
-                // signup(jsonObject)
+
 
                 Log.d("버튼","클릭됨")
+                val jsonObject= JSONObject()
+
+
+
+                jsonObject.put("height",height)
+                jsonObject.put("weight",weight)
+                //jsonObject.put("gender",binding.height.text.toString())
+
+                val year = birthday.toString().substring(0, 4)
+                val month = birthday.toString().substring(4, 6)
+                val day = birthday.toString().substring(6,8)
+
+                val newBirthday = "$year-$month-$day"
+
+
+
+                jsonObject.put("birthday",newBirthday)
+
+
+                jsonObject.put("name",name.toString())
+                jsonObject.put("email",email.toString())
+                jsonObject.put("password",password)
+                jsonObject.put("gender",gender.toString())
+
+                Log.d("json출력",jsonObject.toString())
+
+
+                signup(jsonObject)
             }
         } else {
             // 동의하지 않은 경우: 버튼 비활성화 및 클릭 리스너 제거
@@ -240,90 +292,7 @@ class terms : AppCompatActivity() {
 
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        val check:Boolean =(SharedPreferenceUtils.loadData(this@terms,"terms_agree_check").toBoolean())
-//
-//        Log.d("check출력", check.toString())
-//
-//
-//        if(check){
-//            binding.nextBtn.setBackgroundResource(R.drawable.button_sample2)
-//            binding.nextBtn.setOnClickListener{
-//
-//                val jsonObject= JSONObject()
-//
-//                //jsonObject.put("email",email)
-////
-////            "height": 0,
-////            "weight": 0,
-////            "gender": "string",
-////            "birthday": "2024-01-07T12:32:05.907Z",
-////            "name": "string",
-////            "email": "string"
-//
-//                jsonObject.put("height",height)
-//                jsonObject.put("weight",weight)
-//                //jsonObject.put("gender",binding.height.text.toString())
-//
-//                val year = birthday.toString().substring(0, 4)
-//                val month = birthday.toString().substring(4, 6)
-//                val day = birthday.toString().substring(6,8)
-//
-//                val newBirthday = "$year-$month-$day"
-//
-//
-//
-//                jsonObject.put("birthday",newBirthday)
-//
-//
-//                jsonObject.put("name",name.toString())
-//                jsonObject.put("email",email.toString())
-//                jsonObject.put("password",password)
-//                jsonObject.put("gender",gender.toString())
-//
-//                Log.d("json출력",jsonObject.toString())
-//
-//                //val jsonObject2=JSONObject()
-//
-////
-////            "id": 0,
-////            "email": "string",
-////            "name": "string",
-////            "password": "string",
-////            "authCode": "string"
-//
-////            jsonObject2.put("email",email.toString())
-////            jsonObject2.put("name",binding.name.text.toString())
-////            jsonObject2.put("password",password)
-//
-//
-//
-//
-////임시 코드
-//
-//                val intent = Intent(this,create_account_success::class.java)
-//                startActivity(intent)
-//                finish()
-//
-//                //signup(jsonObject)
-//
-//
-//            }
-//
-//        } else {
-//            binding.nextBtn.setOnClickListener(null)
-//        }
-//    }
 
-    override fun onResume() {
-        super.onResume()
-
-
-
-        // SharedPreferences에서 저장된 값 불러오기
-
-    }
 
     private fun signup(jsonObject:JSONObject){
 
@@ -345,7 +314,7 @@ class terms : AppCompatActivity() {
                     when (response.code()) {
                         200-> {Toast.makeText(this@terms,"계정 생성 성공", Toast.LENGTH_SHORT).show()
 
-                            val intent = Intent(this@terms,first::class.java)
+                            val intent = Intent(this@terms,create_account_success::class.java)
                             startActivity(intent)
                             finish()
 
@@ -364,26 +333,8 @@ class terms : AppCompatActivity() {
                 }
             })
 
-        val intent2 = Intent(this@terms, first::class.java)
-        startActivity(intent2)
-
-        val intent = Intent(this, create_account_success::class.java)
-
-
-        intent.putExtra("useremail",email)
-        intent.putExtra("userpassword",password)
-        intent.putExtra("username",name)
-        intent.putExtra("userbirth",birthday)
-        intent.putExtra("usergender",gender.toString())
-        intent.putExtra("userheight",height)
-        intent.putExtra("userweight",weight)
-
-        startActivity(intent)
 
 
 
-
-
-        finish()
     }
 }

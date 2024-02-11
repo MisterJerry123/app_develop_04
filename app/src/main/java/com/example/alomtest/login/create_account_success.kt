@@ -41,7 +41,9 @@ class create_account_success:AppCompatActivity() {
         click.setOnClickListener{
             Log.d("click", "클릭감지")
 
-            this@create_account_success.finish()
+            val intent = Intent(this@create_account_success,first::class.java)
+            startActivity(intent)
+            finish()
         }
 
 //        val topLayout = findViewById<ConstraintLayout>(R.id.background)
