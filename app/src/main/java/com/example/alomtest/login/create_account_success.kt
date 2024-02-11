@@ -9,34 +9,48 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.alomtest.R
 import com.example.alomtest.databinding.ForgetPasswordLayoutBinding
 import com.example.alomtest.databinding.LoginCreateAccountSuccessBinding
+import com.example.alomtest.databinding.TermsLayoutBinding
 
 class create_account_success:AppCompatActivity() {
-    lateinit var binding: LoginCreateAccountSuccessBinding
+    lateinit var email: String
+    lateinit var password:String
+    lateinit var name:String
+    lateinit var birthday:String
+    lateinit var gender:String
+    lateinit var height:String
+    lateinit var weight:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LoginCreateAccountSuccessBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.login_create_account_success)
+
+        email=intent.getStringExtra("useremail").toString()
+        password=intent.getStringExtra("userpassword").toString()
+        name=intent.getStringExtra("username").toString()
+        birthday=intent.getStringExtra("userbirth").toString()
+        gender=intent.getStringExtra("usergender").toString()
+        weight=intent.getStringExtra("userweight").toString()
+        height=intent.getStringExtra("userheight").toString()
+        gender=intent.getStringExtra("usergender").toString()
 
 
 
+        val click = findViewById<ConstraintLayout>(R.id.background)
 
-//        binding.background.setOnClickListener {
-//
+
+
+        click.setOnClickListener{
+            Log.d("click", "클릭감지")
+
+            this@create_account_success.finish()
+        }
+
+//        val topLayout = findViewById<ConstraintLayout>(R.id.background)
+//        topLayout.setOnClickListener {
 //            Log.d("root", "디버깅")
 //            val intent = Intent(this@create_account_success, first::class.java)
 //            startActivity(intent)
 //            finish()
-//
-//
 //        }
-
-        val topLayout = findViewById<ConstraintLayout>(R.id.background)
-        topLayout.setOnClickListener {
-            Log.d("root", "디버깅")
-            val intent = Intent(this@create_account_success, first::class.java)
-            startActivity(intent)
-            finish()
-        }
 
 
     }

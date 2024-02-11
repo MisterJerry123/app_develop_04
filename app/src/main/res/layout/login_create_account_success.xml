@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     android:background="#6A73FF">
 
-    <Button
-        android:id="@+id/finish_start"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.126" />
-
     <ImageView
         android:layout_width="819dp"
         android:layout_height="146dp"
