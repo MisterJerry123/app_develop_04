@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,8 @@ import com.example.alomtest.exercise.mainpage.exercise_main_copy
 import com.example.alomtest.exerciseData
 import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
 import com.example.alomtest.exercise.custompage03.exercise_selcet_list_adapter
+import com.example.alomtest.home.Home
+import com.example.alomtest.mypage.mypage_body_information
 import com.example.alomtest.presetDtoelement
 import com.example.alomtest.retrofit.Api
 import com.example.alomtest.retrofit.exercise_list
@@ -46,6 +49,27 @@ class add_routine_page : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= FragmentAddRoutinePageBinding.inflate(layoutInflater)
+        viewmodel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
+
+        //뒤로가기 처리
+        val callback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                // 뒤로가기 이벤트가 발생했을 때 수행할 작업
+                // 예를 들어 특정 상황에서만 뒤로가기를 처리하고 싶은 경우 여기에 작성
+
+                replaceFragment(exercise_main_copy())
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
+
+        if(viewmodel._myList.value?.size!! <1){
+            binding.saveBtn.visibility = View.INVISIBLE
+        }
+        else{
+            binding.saveBtn.visibility = View.VISIBLE
+        }
 
         val addbtn = binding.exerciseAddBtn
         val backicon=binding.cancelicon
@@ -137,6 +161,16 @@ class add_routine_page : Fragment() {
         var customList = ArrayList<exerciseData>()
         viewmodel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
 
+        Log.d("size출력", viewmodel._myList.value?.size.toString())
+
+        //TODO 나중에 viewmodel이 0일땐 저장 안되게 invisible하는 코드 추가할 것
+//        if(viewmodel._myList.value?.size!! <1){
+//            binding.saveBtn.visibility = View.INVISIBLE
+//        }
+//        else{
+//            binding.saveBtn.visibility = View.VISIBLE
+//        }
+
         //customList.add(exerciseData("대흉근 발달, 3대 운동","01 바벨 벤치 프레스"))
 
 
@@ -180,6 +214,12 @@ class add_routine_page : Fragment() {
 //            ad?.notifyDataSetChanged()
 
             binding.courseNo.text="총 ${viewmodel._myList.value?.size}코스"
+        if(viewmodel._myList.value?.size!! <1){
+            binding.saveBtn.visibility = View.INVISIBLE
+        }
+        else{
+            binding.saveBtn.visibility = View.VISIBLE
+        }
         }
 
         for(i:Int in 0 until viewmodel._myList.value!!.size){

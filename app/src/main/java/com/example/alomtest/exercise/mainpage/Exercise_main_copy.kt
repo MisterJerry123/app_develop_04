@@ -1,6 +1,8 @@
 package com.example.alomtest.exercise.mainpage
 import SharedPreferenceUtils
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +12,11 @@ import retrofit2.Callback
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseMainCopyBinding
+import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
 import com.example.alomtest.retrofit.Api
 import com.example.alomtest.retrofit.LoginBackendResponse12
 import com.example.alomtest.retrofit.email
@@ -27,10 +31,13 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import java.util.Collections.list
+import kotlin.system.exitProcess
 
 
 class exercise_main_copy : Fragment() {
     private lateinit var binding:FragmentExerciseMainCopyBinding
+    private var backPressedTime: Long = 0
+
 
     //val numbers: Array<Int> = arrayOf(1, 6,11)
     //private val binding get() = _binding!!
@@ -61,7 +68,29 @@ class exercise_main_copy : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=FragmentExerciseMainCopyBinding.inflate(layoutInflater)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val currentTime = System.currentTimeMillis()
 
+                if (currentTime - backPressedTime > 3000) {
+                    // 첫 번째 뒤로가기
+                    backPressedTime = currentTime
+                    // 3초 안에 두 번 뒤로가기를 누르면 앱 종료
+
+                    Toast.makeText(requireContext(), "버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        backPressedTime = 0
+                    }, 3000)
+                } else {
+                    // 두 번째 뒤로가기
+                    requireActivity().finish()
+                    exitProcess(0)
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
         //요소간 여백 넣어주는 코드
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing) // 여백 크기
         val recyclerView = binding.routineList

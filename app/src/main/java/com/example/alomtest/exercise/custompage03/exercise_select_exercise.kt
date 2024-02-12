@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseSelectExerciseBinding
 import com.example.alomtest.exercise.custompage01.add_routine_page
 import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
+import com.example.alomtest.mypage.mypage_body_information
 import com.example.alomtest.retrofit.Api
 import com.example.alomtest.retrofit.LoginBackendResponse13
 import com.example.alomtest.retrofit.exercise_list
@@ -36,6 +38,19 @@ class exercise_select_exercise : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentExerciseSelectExerciseBinding.inflate(layoutInflater)
+
+        //뒤로가기 처리
+        val callback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                // 뒤로가기 이벤트가 발생했을 때 수행할 작업
+                // 예를 들어 특정 상황에서만 뒤로가기를 처리하고 싶은 경우 여기에 작성
+
+                replaceFragment(exercise_add_custom_list())
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
 
         val backicon = binding.cancelicon
         //val total_exercise_List:ArrayList<exercise_list>?

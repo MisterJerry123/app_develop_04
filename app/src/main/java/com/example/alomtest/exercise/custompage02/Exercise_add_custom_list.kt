@@ -5,32 +5,50 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseAddCustomListBinding
 import com.example.alomtest.exercise.custompage01.add_routine_page
 import com.example.alomtest.exercise.custompage03.exercise_select_exercise
+import com.example.alomtest.mypage.mypage_body_information
 
 class exercise_add_custom_list : Fragment() {
     private lateinit var binding: FragmentExerciseAddCustomListBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentExerciseAddCustomListBinding.inflate(layoutInflater)
-
-        val backicon = binding.cancelicon
-
-        backicon.setOnClickListener {
-            replaceFragment(add_routine_page())
-        }
-
-
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        binding = FragmentExerciseAddCustomListBinding.inflate(layoutInflater)
+//
+//
+//
+//
+//    }
     private var _binding: FragmentExerciseAddCustomListBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentExerciseAddCustomListBinding.inflate(inflater, container, false)
+
+        //뒤로가기 처리
+        val callback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                // 뒤로가기 이벤트가 발생했을 때 수행할 작업
+                // 예를 들어 특정 상황에서만 뒤로가기를 처리하고 싶은 경우 여기에 작성
+
+                replaceFragment(add_routine_page())
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), callback)
+
+
+        val backicon = _binding!!.cancelIcon
+
+        backicon.setOnClickListener {
+            replaceFragment(add_routine_page())
+        }
+
         val bundle = Bundle()
 
         _binding?.part01?.setOnClickListener { //가슴
