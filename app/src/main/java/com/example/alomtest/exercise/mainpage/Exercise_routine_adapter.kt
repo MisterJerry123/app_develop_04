@@ -1,6 +1,7 @@
 package com.example.alomtest.exercise.mainpage
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,10 @@ import com.example.alomtest.R
 import com.example.alomtest.databinding.RoutineItemExampleBinding
 import com.example.alomtest.databinding.RoutineItemFooterBinding
 import com.example.alomtest.exercise.custompage01.add_routine_page
+import com.example.alomtest.retrofit.exercise_list
 import com.example.alomtest.routineIndicator
 
-class exercise_routine_adapter(private val context: Context, private val routine:ArrayList<routineIndicator>):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
+class exercise_routine_adapter(private val context: Context, private val routine:ArrayList<routineIndicator>,private val onItemClick:(routineIndicator)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
     private val ITEM_VIEW_TYPE_NORMAL = 0
     private val ITEM_VIEW_TYPE_FOOTER = 1
 
@@ -53,6 +55,15 @@ class exercise_routine_adapter(private val context: Context, private val routine
             ITEM_VIEW_TYPE_NORMAL -> {
                 val routineHolder = holder as exercise_routine_viewholder
                 routineHolder.bind(routine[position])
+
+                routineHolder.itemView.setOnClickListener {
+                    Log.d("루틴어댑터 클릭감지", routine[position].toString())
+
+                    onItemClick(routine[position])
+
+                }
+
+
             }
             ITEM_VIEW_TYPE_FOOTER -> {
                 // Footer 처리

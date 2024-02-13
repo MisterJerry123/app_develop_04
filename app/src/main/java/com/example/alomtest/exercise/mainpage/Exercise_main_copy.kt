@@ -16,6 +16,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseMainCopyBinding
+import com.example.alomtest.exercise.custompage01.add_routine_page
+import com.example.alomtest.exercise.custompage01.doing_exercise
 import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
 import com.example.alomtest.retrofit.Api
 import com.example.alomtest.retrofit.LoginBackendResponse12
@@ -128,7 +130,20 @@ class exercise_main_copy : Fragment() {
         Log.d("routineListdata", routineListdata.toString())
         SharedPreferenceUtils.saveData(requireContext(),"routine_cnt", routineListdata.size.toString())
         binding.routineList.layoutManager = LinearLayoutManager(requireContext())
-        binding.routineList.adapter = exercise_routine_adapter(requireContext(), routineListdata)
+        binding.routineList.adapter = exercise_routine_adapter(requireContext(), routineListdata){
+            onItemClick->
+            //val bundle=Bundle()
+            //bundle.putString("exercise_name", onItemClick.name) // 데이터 추가 (key-value 쌍)
+            val fragment = doing_exercise()
+            //fragment.arguments=bundle
+            parentFragmentManager.beginTransaction() //fragment 바꾸는 코드
+                .replace(R.id.frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+
+
+
+        }
 
 
     }
