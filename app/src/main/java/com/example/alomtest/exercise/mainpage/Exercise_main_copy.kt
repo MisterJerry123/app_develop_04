@@ -74,7 +74,17 @@ class exercise_main_copy : Fragment() {
 
 //TODO 날짜가 바뀌면 쉐프에 진행했던 운동시간 지우는 알고리즘 추가할 것
 
-        val elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+        val elapsedTime:Long
+
+
+        if(SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").isEmpty()){
+            elapsedTime = 0L
+        }
+        else{
+            elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+        }
+
+
         val hours = (elapsedTime / (3600 * 1000)).toInt()
         val minutes = ((elapsedTime - hours * (3600 * 1000)) / (60 * 1000)).toInt()
         val seconds = ((elapsedTime - hours * (3600 * 1000) - minutes * (60 * 1000)) / 1000).toInt()
