@@ -60,6 +60,7 @@ class exercise_main_copy : Fragment() {
 //    )
 
     var test_data = mutableListOf<exercise_routine_profile>()
+
     var loadedUserRoutineFromServer=ArrayList<exercise_routine_list>()//기존에 저장한 운동루틴 불러오는 것
 
 
@@ -118,30 +119,30 @@ class exercise_main_copy : Fragment() {
     }
 
 
-    private fun replaceFragment(fragment: Fragment){
-        val fragmentManager = parentFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,fragment)
-        fragmentTransaction.commit()
-        println("success")
 
-    }
     private fun init(routineListdata:ArrayList<routineIndicator>){
         Log.d("routineListdata", routineListdata.toString())
         SharedPreferenceUtils.saveData(requireContext(),"routine_cnt", routineListdata.size.toString())
         binding.routineList.layoutManager = LinearLayoutManager(requireContext())
-        binding.routineList.adapter = exercise_routine_adapter(requireContext(), routineListdata){
+        binding.routineList.adapter = exercise_routine_adapter(loadedUserRoutineFromServer,requireContext(), routineListdata){
             onItemClick->
-            //val bundle=Bundle()
-            //bundle.putString("exercise_name", onItemClick.name) // 데이터 추가 (key-value 쌍)
+            val bundle=Bundle()
+
+            val gson = Gson()
+            val json = gson.toJson(loadedUserRoutineFromServer[SharedPreferenceUtils.loadData(requireContext(),"routine_idx").toInt()])
+
+            bundle.putString("selectied_exercise_routine",json) // 데이터 추가 (key-value 쌍)
             val fragment = doing_exercise()
-            //fragment.arguments=bundle
+            fragment.arguments=bundle
+
+            //Log.d("init테스트", SharedPreferenceUtils.loadData(requireContext(),"selectied_exercise_routine").toString())
+
+
+
             parentFragmentManager.beginTransaction() //fragment 바꾸는 코드
                 .replace(R.id.frame_layout, fragment)
                 .addToBackStack(null)
                 .commit()
-
-
 
         }
 
@@ -192,6 +193,10 @@ class exercise_main_copy : Fragment() {
         loadedUserRoutineFromServer.addAll(result)
         // 여기서 데이터 처리가 완료되었으므로 UI를 업데이트하는 등의 작업을 수행
         val routineIndicators = responseDataToRoutineIndicator(result)
+
+
+
+
         Log.d("추출한 데이터 출력", routineIndicators.toString())
         // UI 업데이트 등의 작업을 이어서 진행
         init(routineIndicators)

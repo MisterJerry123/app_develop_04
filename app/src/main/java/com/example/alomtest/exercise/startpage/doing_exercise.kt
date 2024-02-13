@@ -22,6 +22,7 @@ import com.example.alomtest.exercise.mainpage.exercise_main_copy
 import com.example.alomtest.exerciseData
 import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
 import com.example.alomtest.exercise.custompage03.exercise_selcet_list_adapter
+import com.example.alomtest.exercise.startpage.doing_exercise_list_adapter
 import com.example.alomtest.home.Home
 import com.example.alomtest.mypage.mypage_body_information
 import com.example.alomtest.presetDtoelement
@@ -42,9 +43,12 @@ class doing_exercise : Fragment() {
 
     private lateinit var binding: FragmentDoingExercisePageBinding
     private lateinit var viewmodel : MyViewModel
+    lateinit var userRoutine :  exercise_routine_list
     lateinit var exercise_recycler_view : RecyclerView
     var custom_cnt:Int =0
     var receive_data: String? = " " //공백으로 하면 되고 왜 null로 하면 안되는거지?
+
+    lateinit var final_list:ArrayList<exerciseData>
 
 
 
@@ -69,11 +73,49 @@ class doing_exercise : Fragment() {
 
         val backicon=binding.cancelicon
 
+
+        val gson = Gson()
+//
         val bundle = arguments
+//        receive_data = bundle?.getString("selectied_exercise_routine").toString()
+//
+//        Log.d("번들을 통해 받은 데이터", receive_data.toString())
+
+        val json = bundle?.getString("selectied_exercise_routine")
+        val userRoutine = gson.fromJson(json,exercise_routine_list::class.java)
+
+        Log.d("json형태로 출력test", userRoutine.toString())
+
+
+        binding.presetName.text = userRoutine.presetName
+
+        val extractedList = ArrayList<exerciseData>()
+        val extract_set = ArrayList<set_list_item>()
+        for(i:Int in 0 until userRoutine.splitPresetDto.size){
 
 
 
 
+            for(j:Int in 0 until userRoutine.splitPresetDto[i].splitExerciseDetailDto.size){
+                extract_set.add(set_list_item(userRoutine.splitPresetDto[i].splitExerciseDetailDto[j].weight.toInt(),userRoutine.splitPresetDto[i].splitExerciseDetailDto[j].repetitionCount))
+
+
+            }
+
+            Log.d("for문 나간 후 extract_set출력", extract_set.toString())
+
+
+            extractedList.add(exerciseData("부제목테스트",userRoutine.splitPresetDto[i].exerciseName, set_list = ArrayList(extract_set)))
+
+            extract_set.clear()
+
+
+            //extractedList.add(exerciseData(userRoutine.splitPresetDto[i].exerciseName,))
+        }
+
+
+        final_list = ArrayList(extractedList)
+        Log.d("추출리스트 테스트", extractedList.toString())
 
 
 //TODO 버튼을 눌러도 넘어가지 않는 경우도 고려(예외처리, 가령 운동을 추가하지 않았는데 저장 버튼을 누른 경우)
@@ -105,6 +147,17 @@ class doing_exercise : Fragment() {
 
 
 
+
+
+        //정규식을 이용한 presetnumber추출
+//        val regex = Regex("presetNumber=(\\d+)")
+//        val matchResult = regex.find(receivedData)
+//        val presetNumber = matchResult?.groupValues?.get(1)?.toIntOrNull()
+
+
+        //Log.d("리시브 번들 테스트",arguments?.getString("selectedRoutine").toString())
+
+
 //        val customList = arrayListOf(
 //            exerciseData("대흉근 발달, 3대 운동","01 바벨 벤치 프레스")
 //
@@ -128,17 +181,20 @@ class doing_exercise : Fragment() {
 
 
 
-        println("routine page 진입1")
-        exercise_recycler_view = view.findViewById(R.id.exercise_view)
-        println("routine page 진입2")
+        exercise_recycler_view = view.findViewById(R.id.doing_exercise_view)
         exercise_recycler_view.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-        println("routine page 진입3")
         exercise_recycler_view.setHasFixedSize(true)
-        println("routine page 진입4")
 
         //exercise_recycler_view.adapter = viewmodel._myList.value?.let { exercise_list_adpater(it) }
-        exercise_recycler_view.adapter = exercise_list_adpater(viewmodel._myList.value!!)
-        println("routine page 진입5")
+
+
+        //exerciseData형으로 변경
+        //userRoutine
+
+
+        exercise_recycler_view.adapter = doing_exercise_list_adapter(final_list)
+
+        Log.d("viewmodel출력", viewmodel._myList.value!!.toString())
 
         Log.d("if문 진입 전 receive data 확인", receive_data.toString())
         Log.d("true or false", (receive_data!!.isNotBlank()).toString())

@@ -1,6 +1,8 @@
 package com.example.alomtest.exercise.mainpage
 
+import SharedPreferenceUtils
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,12 +13,18 @@ import com.example.alomtest.R
 import com.example.alomtest.databinding.RoutineItemExampleBinding
 import com.example.alomtest.databinding.RoutineItemFooterBinding
 import com.example.alomtest.exercise.custompage01.add_routine_page
+import com.example.alomtest.exercise.custompage01.doing_exercise
+import com.example.alomtest.exerciseData
 import com.example.alomtest.retrofit.exercise_list
+import com.example.alomtest.retrofit.exercise_routine_list
 import com.example.alomtest.routineIndicator
+import org.json.JSONObject
 
-class exercise_routine_adapter(private val context: Context, private val routine:ArrayList<routineIndicator>,private val onItemClick:(routineIndicator)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
+class exercise_routine_adapter(private val selectedRoutine : ArrayList<exercise_routine_list>, private val context: Context, private val routine:ArrayList<routineIndicator>, private val onItemClick:(routineIndicator)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
     private val ITEM_VIEW_TYPE_NORMAL = 0
     private val ITEM_VIEW_TYPE_FOOTER = 1
+
+    //private val
 
 
 
@@ -58,6 +66,35 @@ class exercise_routine_adapter(private val context: Context, private val routine
 
                 routineHolder.itemView.setOnClickListener {
                     Log.d("루틴어댑터 클릭감지", routine[position].toString())
+
+                    //TODO 번들 넣기
+
+                    val jsonObject=JSONObject()
+                    jsonObject.put("selectied_exercise_routine", selectedRoutine[position])
+                    Log.d("jsonobject출력", jsonObject.toString())
+
+
+                    //SharedPreferenceUtils.saveData(context,"selectied_exercise_routine",selectedRoutine[position].toString())
+
+                    SharedPreferenceUtils.saveData(context,"selectied_exercise_routine",jsonObject.toString())
+
+
+
+                    SharedPreferenceUtils.saveData(context,"routine_idx",position.toString())
+
+
+
+
+
+
+
+                    Log.d("해당루틴 출력", selectedRoutine[position].toString())
+
+
+
+
+
+
 
                     onItemClick(routine[position])
 
