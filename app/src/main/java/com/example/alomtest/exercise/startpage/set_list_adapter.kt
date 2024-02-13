@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.alomtest.databinding.CustomExerciseSetListBinding
+import com.example.alomtest.databinding.DoingExerciseSetListBinding
 import com.example.alomtest.databinding.SetItemFooterBinding
 import com.example.alomtest.exercise.custompage01.set_list_item
 
@@ -25,7 +26,7 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_NORMAL -> {
-                val binding = CustomExerciseSetListBinding.inflate(
+                val binding = DoingExerciseSetListBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -73,60 +74,60 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
 //
 //                    notifyDataSetChanged()
 //                }
-                setlistHolder.binding.minusBtn.setOnClickListener {
-                    onMinusClickListener?.invoke()
-                    Log.d("삭제직전", setlist.toString())
-                    Log.d("삭제할 인덱스",position.toString())
-
-                    setlist.removeAt(position)
+//                setlistHolder.binding.minusBtn.setOnClickListener {
+//                    onMinusClickListener?.invoke()
+//                    Log.d("삭제직전", setlist.toString())
+//                    Log.d("삭제할 인덱스",position.toString())
 //
-//                    for (i:Int in position until setlist.size-1){
-//                        setlist[i]=setlist[i+1]
+//                    setlist.removeAt(position)
+////
+////                    for (i:Int in position until setlist.size-1){
+////                        setlist[i]=setlist[i+1]
+////
+////
+////
+////                    }
+//
+//                    //setlist.removeAt(setlist.size-1)
+//
+//                    //notifyItemRemoved(position)
+//                    notifyDataSetChanged()
 //
 //
 //
-//                    }
-
-                    //setlist.removeAt(setlist.size-1)
-
-                    //notifyItemRemoved(position)
-                    notifyDataSetChanged()
-
-
-
-                    Log.d("삭제이후", setlist.toString())
-
-//                    if(setlistHolder.setlist.size==0){
+//                    Log.d("삭제이후", setlist.toString())
 //
-//                        viewmodel._myList.value?.removeAt(position)
+////                    if(setlistHolder.setlist.size==0){
+////
+////                        viewmodel._myList.value?.removeAt(position)
+////
+////                    }
 //
-//                    }
-
-
-
-                    Log.d("세트리스트 사이즈", setlist.size.toString())
-                    //for(i:Int in 0 until setlist.size){
-                    //setlistHolder.binding.setNo.text="* ${i+1}세트 | "
-                    //setlistHolder.binding.setNo.setText("* ${i+1}세트 | ")
-                    //setlistHolder.binding.weight.setText("${setlist[i].weight}")
-                    //setlistHolder.binding.cnt.setText("${setlist[i].cnt}")
-
-
-
-                    //}
-
-
-
-
-                    notifyDataSetChanged()
-                    //notifyItemRemoved(position)
-
-
-
-
-
-
-                }
+//
+//
+//                    Log.d("세트리스트 사이즈", setlist.size.toString())
+//                    //for(i:Int in 0 until setlist.size){
+//                    //setlistHolder.binding.setNo.text="* ${i+1}세트 | "
+//                    //setlistHolder.binding.setNo.setText("* ${i+1}세트 | ")
+//                    //setlistHolder.binding.weight.setText("${setlist[i].weight}")
+//                    //setlistHolder.binding.cnt.setText("${setlist[i].cnt}")
+//
+//
+//
+//                    //}
+//
+//
+//
+//
+//                    notifyDataSetChanged()
+//                    //notifyItemRemoved(position)
+//
+//
+//
+//
+//
+//
+//                }
 
 
                 //setlist[position]
@@ -157,9 +158,11 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
             }
         }
     }
-    class set_list_viewholder(val setlist:ArrayList<set_list_item>, val binding: CustomExerciseSetListBinding) : RecyclerView.ViewHolder(binding.root){ // xml 아이템과 연결
+    class set_list_viewholder(val setlist:ArrayList<set_list_item>, val binding: DoingExerciseSetListBinding) : RecyclerView.ViewHolder(binding.root){ // xml 아이템과 연결
         fun bind(setList: set_list_item, idx:Int){
             binding.setNo.text="ㆍ ${idx+1}세트 | "
+            binding.weight.text = "${setlist[position].weight.toString()}kg"
+            binding.cnt.text = "${setlist[position].cnt.toString()}회"
             //setlist[idx].set=idx+1
 
 

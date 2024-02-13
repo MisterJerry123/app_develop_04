@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.alomtest.R
-import com.example.alomtest.databinding.CustomExerciseListCopyBinding
+import com.example.alomtest.databinding.DoingExerciseListBinding
 import com.example.alomtest.exerciseData
 
 
@@ -17,7 +17,7 @@ class doing_exercise_list_adapter(val customList:ArrayList<exerciseData>): Adapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         //val View = LayoutInflater.from(parent.context).inflate(R.layout.custom_exercise_list_copy,parent,false)//context는 activity에서 담고 있는 모든 정보
-        val view = CustomExerciseListCopyBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view = DoingExerciseListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CustomViewHolder(view).apply {
 
             itemView.setOnClickListener {
@@ -46,13 +46,14 @@ class doing_exercise_list_adapter(val customList:ArrayList<exerciseData>): Adapt
         return customList.size //footer를 위한 사이즈 추가
     }
 
-    inner class CustomViewHolder(private val binding : CustomExerciseListCopyBinding):RecyclerView.ViewHolder(binding.root) { //뭔가를 잡아주는
+    inner class CustomViewHolder(private val binding : DoingExerciseListBinding):RecyclerView.ViewHolder(binding.root) { //뭔가를 잡아주는
 
 
         fun bind(pos:Int){
             binding.setRecyclerview.apply {
                 adapter = set_list_adapter(context,/*ArrayList<set_list_item>()*/customList[pos].set_list )
                 Log.d("커스텀리스트출력", customList.toString())
+
 
                 layoutManager = LinearLayoutManager(binding.setRecyclerview.context,
                     LinearLayoutManager.VERTICAL,false)
