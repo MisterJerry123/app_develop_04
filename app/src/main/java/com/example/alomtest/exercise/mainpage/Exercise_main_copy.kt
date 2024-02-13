@@ -72,7 +72,7 @@ class exercise_main_copy : Fragment() {
         super.onCreate(savedInstanceState)
         binding=FragmentExerciseMainCopyBinding.inflate(layoutInflater)
 
-
+//TODO 날짜가 바뀌면 쉐프에 진행했던 운동시간 지우는 알고리즘 추가할 것
 
         val elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
         val hours = (elapsedTime / (3600 * 1000)).toInt()
