@@ -1,6 +1,7 @@
 package com.example.alomtest.exercise.startpage
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.alomtest.databinding.CustomExerciseSetListBinding
+import com.example.alomtest.databinding.DoingExerciseSetItemFooterBinding
 import com.example.alomtest.databinding.DoingExerciseSetListBinding
 import com.example.alomtest.databinding.SetItemFooterBinding
 import com.example.alomtest.exercise.custompage01.set_list_item
@@ -19,6 +21,9 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
     //private lateinit var viewmodel : MyViewModel
     private val ITEM_VIEW_TYPE_NORMAL = 0
     private val ITEM_VIEW_TYPE_FOOTER = 1
+    private var remainingTimeMillis: Long = 0
+    private var isTimerRunning = false
+
     var onFooterClickListener: (() -> Unit)? = null
     var onMinusClickListener: (() -> Unit)?=null
 
@@ -34,7 +39,7 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
                 set_list_adapter.set_list_viewholder(setlist,binding)
             }
             ITEM_VIEW_TYPE_FOOTER -> {
-                val binding = SetItemFooterBinding.inflate(
+                val binding = DoingExerciseSetItemFooterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -63,6 +68,18 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
         when (getItemViewType(position)) {
             ITEM_VIEW_TYPE_NORMAL -> {
                 val setlistHolder = holder as set_list_adapter.set_list_viewholder
+
+
+                setlistHolder.binding.completeBtn.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                    if(isChecked){
+                        startTimer()
+                    }
+
+                }
+
+
+
                 setlistHolder.bind(setlist[position],position)
 
 //                setlistHolder.itemView.setOnClickListener {
@@ -135,21 +152,23 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
             }
             ITEM_VIEW_TYPE_FOOTER -> {
                 val footerHolder = holder as set_list_adapter.set_list_footer_viewholder
+                footerHolder.binding.restTimer.text = getFormattedTime(remainingTimeMillis)
+
 
 //                footerHolder.itemView.setOnClickListener {
 //                    onFooterClickListener?.invoke()
 //                    setlist.add(set_list_item(1,1))
 //                    notifyDataSetChanged()
 //                }
-                footerHolder.binding.footerIcon.setOnClickListener {
-                    onFooterClickListener?.invoke()
-                    setlist.add(set_list_item(0,0))
-                    Log.d("add후 세트 리스트 출력", setlist.toString())
-                    //notifyItemInserted(setlist.size)
-
-
-                    notifyDataSetChanged()
-                }
+//                footerHolder.binding.footerIcon.setOnClickListener {
+//                    onFooterClickListener?.invoke()
+//                    setlist.add(set_list_item(0,0))
+//                    Log.d("add후 세트 리스트 출력", setlist.toString())
+//                    //notifyItemInserted(setlist.size)
+//
+//
+//                    notifyDataSetChanged()
+//                }
 
 
 
@@ -158,12 +177,38 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
             }
         }
     }
+    private fun getFormattedTime(timeInMillis: Long): String {
+        val hours = (timeInMillis / (3600 * 1000)).toInt()
+        val minutes = ((timeInMillis - hours * (3600 * 1000)) / (60 * 1000)).toInt()
+        val seconds = ((timeInMillis - hours * (3600 * 1000) - minutes * (60 * 1000)) / 1000).toInt()
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    private lateinit var timer: CountDownTimer
+
+    private fun startTimer() {
+
+            timer = object : CountDownTimer(60000, 1000) { // 1분 타이머
+                override fun onTick(millisUntilFinished: Long) {
+                    remainingTimeMillis = millisUntilFinished
+                    notifyItemChanged(itemCount - 1) // Footer를 갱신하여 남은 시간을 업데이트
+                }
+
+                override fun onFinish() {
+                    // 타이머가 끝났을 때 수행할 작업
+                }
+            }.start()
+            isTimerRunning = true
+
+    }
+    //}
+
     class set_list_viewholder(val setlist:ArrayList<set_list_item>, val binding: DoingExerciseSetListBinding) : RecyclerView.ViewHolder(binding.root){ // xml 아이템과 연결
         fun bind(setList: set_list_item, idx:Int){
             binding.setNo.text="ㆍ ${idx+1}세트 | "
             binding.weight.text = "${setlist[position].weight.toString()}kg"
             binding.cnt.text = "${setlist[position].cnt.toString()}회"
             //setlist[idx].set=idx+1
+            
 
 
 
@@ -173,7 +218,7 @@ class set_list_adapter( val context: Context, val setlist:ArrayList<set_list_ite
         }
     }
 
-    class set_list_footer_viewholder(val binding: SetItemFooterBinding) : RecyclerView.ViewHolder(binding.root) {
+    class set_list_footer_viewholder(val binding: DoingExerciseSetItemFooterBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
