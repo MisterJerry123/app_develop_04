@@ -59,7 +59,7 @@
             android:name=".login.terms"
             android:exported="false" />
         <activity
-            android:name=".splash.SplashActivity"
+            android:name=".login.first"
             android:exported="false" />
         <activity
             android:name=".login.forget_password"
@@ -93,7 +93,7 @@
 <!--            android:name=".login.account2"-->
 <!--            android:exported="true">-->
                 <activity
-                    android:name=".login.first"
+                    android:name=".splash.SplashActivity"
                     android:exported="true">
 
             <intent-filter>
