@@ -23,7 +23,7 @@
         android:textSize="10sp"
         android:layout_marginLeft="15dp"
 
-        android:textColor="#CBD3FF"
+        android:textColor="#00116D"
 
         />
     <TextView

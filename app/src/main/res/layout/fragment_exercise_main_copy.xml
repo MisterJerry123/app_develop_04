@@ -311,7 +311,9 @@
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="12"
+                        android:layout_weight="10"
+                        android:layout_marginLeft="3dp"
+
                         />
                     <LinearLayout
                         android:layout_width="0dp"
@@ -400,7 +402,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="55"
                                 android:layout_gravity="bottom"
-                                android:src="@drawable/exercise_main_info_consumed_continuous_counter_icon"
+                                android:src="@drawable/exercise_attendence_icon"
                                 />
 
 
@@ -413,9 +415,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="55"
-                            android:textSize="8sp"
-                            android:text="코드로 구현"
+                            android:textSize="10sp"
+                            android:text="145일간 헬스미를 찾아주셨어요!"
                             android:textColor="#fff"
+                            android:gravity="left|center_vertical"
                             />
 
 
@@ -481,7 +484,7 @@
                                     android:layout_height="0dp"
                                     android:layout_weight="23"
                                     android:text="소모한 칼로리"
-                                    android:textColor="#FF4646"
+                                    android:textColor="#00E88F"
                                     android:textSize="8sp"
                                     android:gravity="bottom|left"
                                     />
@@ -505,7 +508,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
 
-                                        android:text="1345"
+                                        android:text="345"
 
                                         android:textColor="#fff"
                                         android:gravity="left|center"
@@ -565,9 +568,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="55"
-                            android:text="코드로 구현"
-                            android:textSize="8sp"
+                            android:text="지난 30일간 하루 평균 소모한 \n칼로리는 345 Kcal 입니다!"
+                            android:textSize="10sp"
                             android:textColor="#fff"
+                            android:gravity="left|center_vertical"
                             />
 
 

@@ -392,7 +392,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="55"
                                 android:layout_gravity="bottom"
-                                android:src="@drawable/exercise_main_info_consumed_continuous_counter_icon"
+                                android:src="@drawable/exercise_attendence_icon"
                                 />
 
 
