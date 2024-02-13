@@ -39,9 +39,6 @@ class terms : AppCompatActivity() {
     lateinit var weight:String
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(SharedPreferenceUtils.loadData(this@terms,"terms_agree_check").toString()!=true.toString()){
@@ -60,9 +57,6 @@ class terms : AppCompatActivity() {
         weight=intent.getStringExtra("userweight").toString()
         height=intent.getStringExtra("userheight").toString()
         gender=intent.getStringExtra("usergender").toString()
-
-
-
 
 
         Log.d("terms 이메일 인텐트 테스트",email)
@@ -103,12 +97,6 @@ class terms : AppCompatActivity() {
 
             signup(jsonObject)
 
-
-
-
-
-
-
         }
 
 
@@ -129,8 +117,6 @@ class terms : AppCompatActivity() {
 
             }
         }
-
-
 
         this@terms.onBackPressedDispatcher.addCallback(this, callback)
 

@@ -1,6 +1,8 @@
 package com.example.alomtest.exercise.mainpage
 
 import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +12,17 @@ import com.example.alomtest.R
 import com.example.alomtest.databinding.RoutineItemExampleBinding
 import com.example.alomtest.databinding.RoutineItemFooterBinding
 import com.example.alomtest.exercise.custompage01.add_routine_page
+import com.example.alomtest.exercise.custompage01.doing_exercise
+import com.example.alomtest.retrofit.exercise_list
+import com.example.alomtest.retrofit.exercise_routine_list
 import com.example.alomtest.routineIndicator
+import org.json.JSONObject
 
-class exercise_routine_adapter(private val context: Context, private val routine:ArrayList<routineIndicator>):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
+class exercise_routine_adapter(private val context: Context, private val routine:ArrayList<routineIndicator>,val loadeddata :ArrayList<exercise_routine_list>,private val onItemClick:(exercise_list)->Unit):RecyclerView.Adapter<RecyclerView.ViewHolder>() { //어댑터는 데이터를 그려주는 역할
     private val ITEM_VIEW_TYPE_NORMAL = 0
     private val ITEM_VIEW_TYPE_FOOTER = 1
+    val bundle = Bundle()
+
 
 
 
@@ -53,6 +61,36 @@ class exercise_routine_adapter(private val context: Context, private val routine
             ITEM_VIEW_TYPE_NORMAL -> {
                 val routineHolder = holder as exercise_routine_viewholder
                 routineHolder.bind(routine[position])
+
+                holder.itemView.setOnClickListener{
+//                    val fragment = add_routine_page()
+//                    bundle.putString("exercise_name", holder.textView.text.toString())
+//                    fragment.arguments = bundle
+//                    onItemClick(item)
+
+                    Log.d("holder","클릭감지됨")
+                    val fragment=doing_exercise()
+                    Log.d("해당하는 데이터",loadeddata[position].toString())
+
+                    val jsonObject=JSONObject()
+
+                    jsonObject.put("lodeddata",loadeddata[position].toString())
+                    Log.d("json", jsonObject.toString())
+
+
+                    bundle.putString("selected_routine_data",jsonObject.toString())
+                    fragment.arguments = bundle
+
+
+
+
+
+                }
+
+
+
+
+
             }
             ITEM_VIEW_TYPE_FOOTER -> {
                 // Footer 처리
@@ -95,7 +133,13 @@ class exercise_routine_adapter(private val context: Context, private val routine
 
             binding.exerciseCnt.text="루틴 ${routine.cnt}개"
             binding.exerciseTitle.text=routine.title
+
+
         }
+
+
+
+
     }
 
 

@@ -16,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.alomtest.R
 import com.example.alomtest.databinding.FragmentExerciseMainCopyBinding
+import com.example.alomtest.exercise.custompage01.doing_exercise
 import com.example.alomtest.exercise.custompage02.exercise_add_custom_list
 import com.example.alomtest.retrofit.Api
 import com.example.alomtest.retrofit.LoginBackendResponse12
@@ -108,6 +109,11 @@ class exercise_main_copy : Fragment() {
         //Log.d("loadedUserRoutineFromServer",loadedUserRoutineFromServer.toString())
         load_exercise()
 
+
+
+
+
+
 }
 
     override fun onResume() {
@@ -124,12 +130,28 @@ class exercise_main_copy : Fragment() {
         println("success")
 
     }
+
+
     private fun init(routineListdata:ArrayList<routineIndicator>){
         Log.d("routineListdata", routineListdata.toString())
         SharedPreferenceUtils.saveData(requireContext(),"routine_cnt", routineListdata.size.toString())
         binding.routineList.layoutManager = LinearLayoutManager(requireContext())
-        binding.routineList.adapter = exercise_routine_adapter(requireContext(), routineListdata)
+       val adapter = exercise_routine_adapter(requireContext(), routineListdata,loadedUserRoutineFromServer){
+            clickedItem->
+            val bundle = Bundle()
 
+           Log.d("어댑터 클릭 감지","")
+            bundle.putString("","")
+            val fragment = doing_exercise()
+            fragment.arguments=bundle
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_layout,fragment)
+                .addToBackStack(null)
+                .commit()
+
+        }
+        binding.routineList.adapter = adapter
+        //추가//
 
     }
 

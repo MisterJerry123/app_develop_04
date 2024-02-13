@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:Tools="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:background="@drawable/exercise_routine_list_design"
@@ -47,18 +48,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="3"
-        tools:listitem="@layout/custom_exercise_set_list"
+        tools:listitem="@layout/doing_exercise_set_list"
 
         />
 
 
-
-
-
 </LinearLayout>
-
-
-
 
 
 </LinearLayout>

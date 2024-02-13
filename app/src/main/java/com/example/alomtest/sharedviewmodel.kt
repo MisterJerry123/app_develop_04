@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
     // MutableLiveData that contains an ArrayList
-    val _myList = MutableLiveData<ArrayList<exerciseData>>().apply { value = ArrayList<exerciseData>() }
+
+    val _myList = MutableLiveData<ArrayList<exerciseData>>().apply {
+
+        value = ArrayList<exerciseData>() }
 
 
     // Function to add an item to the ArrayList
