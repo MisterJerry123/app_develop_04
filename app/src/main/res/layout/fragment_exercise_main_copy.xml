@@ -155,7 +155,7 @@
                                 android:layout_weight="1"
                                 />
                             <TextView
-
+                                android:id="@+id/exercise_indicator"
                                 android:gravity="center_vertical"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -169,6 +169,7 @@
 
                         </LinearLayout>
                         <TextView
+                            android:id="@+id/exercise_uptime"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:text="1h 26m"

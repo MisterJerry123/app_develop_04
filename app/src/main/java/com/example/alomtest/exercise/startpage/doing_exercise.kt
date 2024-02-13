@@ -2,6 +2,7 @@ package com.example.alomtest.exercise.custompage01
 
 import SharedPreferenceUtils
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -50,12 +51,35 @@ class doing_exercise : Fragment() {
 
     lateinit var final_list:ArrayList<exerciseData>
 
+    var startTime: Long = 0
+
+
+
+    private var elapsedTime: Long = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= FragmentDoingExercisePageBinding.inflate(layoutInflater)
         viewmodel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
+
+
+        val loadedData = SharedPreferenceUtils.loadData(requireContext(), "exercise_uptime")
+        elapsedTime = if (loadedData.isNotEmpty() && loadedData.toLong() > 0) {
+            loadedData.toLong()
+        } else {
+            0L
+        }
+
+        startStopwatch()
+
+
+        //stopwatch부
+
+
+        ///
+
 
         //뒤로가기 처리
         val callback = object : OnBackPressedCallback(true /* enabled by default */) {
@@ -139,8 +163,31 @@ class doing_exercise : Fragment() {
 
 
 
+
+
+
+
+    }
+    private fun startStopwatch() {
+
+        startTime = SystemClock.elapsedRealtime() - elapsedTime
+        stopwatchHandler.postDelayed(stopwatchRunnable, REFRESH_RATE)
     }
 
+    private val stopwatchHandler = android.os.Handler()
+    private val stopwatchRunnable = object : Runnable {
+        override fun run() {
+            elapsedTime = SystemClock.elapsedRealtime() - startTime
+            val hours = (elapsedTime / (3600 * 1000)).toInt()
+            val minutes = ((elapsedTime - hours * (3600 * 1000)) / (60 * 1000)).toInt()
+            val seconds = ((elapsedTime - hours * (3600 * 1000) - minutes * (60 * 1000)) / 1000).toInt()
+            val milliseconds = (elapsedTime - hours * (3600 * 1000) - minutes * (60 * 1000) - seconds * 1000).toInt()
+            val formattedTime = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+            binding.exerciseUptime.text = formattedTime
+
+            stopwatchHandler.postDelayed(this, REFRESH_RATE)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -246,7 +293,25 @@ class doing_exercise : Fragment() {
         //return inflater.inflate(R.layout.fragment_mypage_body_measurement_editmode, container, false)
     }
 
+    override fun onPause() {
+        super.onPause()
 
+        SharedPreferenceUtils.saveData(requireContext(),"exercise_uptime", elapsedTime.toString())
+        Log.d("퍼즈 저장",elapsedTime.toString())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+        Log.d("리즈메 로드", elapsedTime.toString())
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SharedPreferenceUtils.saveData(requireContext(),"exercise_uptime", "0")
+
+    }
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = parentFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -403,6 +468,9 @@ class doing_exercise : Fragment() {
             })
     }
     companion object {
+
+        private const val REFRESH_RATE: Long = 100
+
     }
 
 }

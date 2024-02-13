@@ -71,6 +71,30 @@ class exercise_main_copy : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=FragmentExerciseMainCopyBinding.inflate(layoutInflater)
+
+
+
+        val elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+        val hours = (elapsedTime / (3600 * 1000)).toInt()
+        val minutes = ((elapsedTime - hours * (3600 * 1000)) / (60 * 1000)).toInt()
+        val seconds = ((elapsedTime - hours * (3600 * 1000) - minutes * (60 * 1000)) / 1000).toInt()
+        if(hours==0 && minutes==0 && seconds == 0 ){
+            binding.exerciseUptime.text="0H 00m"
+            binding.exerciseIndicator.text="운동 전"
+        }
+        else{
+            binding.exerciseIndicator.text="운동 중"
+
+
+            binding.exerciseUptime.text = "${hours}시간 ${minutes}분"
+        }
+
+
+
+
+
+
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val currentTime = System.currentTimeMillis()
