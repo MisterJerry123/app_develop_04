@@ -65,12 +65,19 @@ class doing_exercise : Fragment() {
         viewmodel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
 
 
-        val loadedData = SharedPreferenceUtils.loadData(requireContext(), "exercise_uptime")
-        elapsedTime = if (loadedData.isNotEmpty() && loadedData.toLong() > 0) {
-            loadedData.toLong()
-        } else {
-            0L
+
+
+
+
+        if(SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").isEmpty()){
+            elapsedTime = 0L
         }
+        else{
+            elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+        }
+
+
+
 
         startStopwatch()
 
@@ -302,7 +309,16 @@ class doing_exercise : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toLong()
+
+        if(SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").isEmpty()){
+            elapsedTime=0L
+        }
+        else{
+            elapsedTime = SharedPreferenceUtils.loadData(requireContext(),"exercise_uptime").toString().toLong()
+
+        }
+
+
         Log.d("리즈메 로드", elapsedTime.toString())
 
     }
