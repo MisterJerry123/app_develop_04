@@ -89,8 +89,9 @@ class exercise_main_copy : Fragment() {
             binding.exerciseUptime.text = "${hours}시간 ${minutes}분"
         }
 
-
-
+        Log.d("계산결과",(minutes/60*100).toString())
+        binding.percentIndicator.text = "${minutes*100/60}%"
+        binding.progressbarIndicator.progress=minutes*100/60
 
 
 

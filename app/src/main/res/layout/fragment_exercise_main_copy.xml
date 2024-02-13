@@ -130,7 +130,7 @@
                         android:orientation="vertical"
                         android:layout_weight="198">
 
-
+<!--
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -139,12 +139,15 @@
                             android:layout_marginTop="10dp"
                             android:textColor="#DBE9E4"
                             android:textSize="10sp"/>
+    -->
+
                         <LinearLayout
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:orientation="horizontal"
                             android:layout_weight="10"
+
                             >
 
 
@@ -161,6 +164,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="3dp"
                                 android:text="운동 중"
+
                                 android:textSize="15sp"
                                 android:textColor="#00E88F"
                                 android:layout_weight="10"
@@ -173,9 +177,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:text="1h 26m"
-                            android:layout_weight="20"
+                            android:layout_weight="10"
                             android:textSize="30sp"
                             android:textColor="#fff"
+                            android:layout_marginBottom="10dp"
 
                             />
 
@@ -192,15 +197,16 @@
 
                             >
                     <ProgressBar
+                        android:id="@+id/progressbar_indicator"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
                         android:max="100"
-                        android:progress="65"
+
                         android:indeterminate="false"
                         android:progressDrawable="@drawable/circular_progressbar"
                         android:indeterminateOnly="false"
-                        android:rotation="35"
+                        android:rotation="270"
                         android:padding="15dp"
 
 
@@ -208,6 +214,7 @@
 
                         />
                     <TextView
+                        android:id="@+id/percent_indicator"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="65%"
